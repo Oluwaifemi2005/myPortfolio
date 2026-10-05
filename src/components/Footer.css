@@ -1,0 +1,78 @@
+/* Footer Styles strictly matching Screenshot 4 */
+.footer-root {
+  background-color: var(--bg-primary);
+  border-top: 1px solid var(--border-color);
+  padding: 3.5rem 0 2.5rem;
+  margin-top: auto;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+/* Back To Top Button */
+.footer-back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-primary);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-sm);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-back-to-top:hover {
+  color: var(--color-accent-yellow);
+  transform: translateY(-2px);
+}
+
+.footer-back-to-top svg {
+  transition: transform 0.2s ease;
+}
+
+.footer-back-to-top:hover svg {
+  transform: translateY(-2px);
+}
+
+/* Social Media Icons */
+.footer-social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.footer-social-item {
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  transition: all 0.2s ease;
+}
+
+.footer-social-item:hover {
+  color: var(--color-accent-yellow);
+  border-color: var(--color-accent-yellow);
+  transform: translateY(-2px);
+}
+
+/* Copyright Line */
+.footer-copyright {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}

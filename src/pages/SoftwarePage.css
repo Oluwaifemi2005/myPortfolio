@@ -1,0 +1,97 @@
+/* SoftwarePage Styles */
+.software-page-root {
+  padding: 5rem 0 7rem;
+  background-color: var(--bg-primary);
+  min-height: calc(100vh - var(--header-height));
+}
+
+.software-container {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.software-page-header {
+  margin-bottom: 2rem;
+}
+
+/* Projects Grid */
+.software-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.25rem;
+  margin-bottom: 5rem;
+}
+
+/* GitHub Callout Banner */
+.software-github-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 2.5rem;
+}
+
+.software-github-callout-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem;
+}
+
+.software-github-callout-text {
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.software-github-callout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: var(--color-accent-yellow);
+  color: var(--text-inverse);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.8rem 1.65rem;
+  border-radius: var(--border-radius-pill);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(250, 204, 21, 0.2);
+}
+
+.software-github-callout-btn:hover {
+  background-color: var(--color-accent-yellow-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(250, 204, 21, 0.32);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 860px) {
+  .software-projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .software-github-callout {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .software-github-callout-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .software-page-root {
+    padding: 3.5rem 0 5rem;
+  }
+}

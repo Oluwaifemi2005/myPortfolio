@@ -1,0 +1,340 @@
+/* AboutPage Styles */
+.about-page-root {
+  padding: 5rem 0 7rem;
+  background-color: var(--bg-primary);
+  min-height: calc(100vh - var(--header-height));
+}
+
+.about-page-container {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.about-page-header {
+  margin-bottom: 3.5rem;
+}
+
+/* Hero Bio & Portrait Split */
+.about-hero-split {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 4rem;
+  align-items: start;
+  margin-bottom: 6rem;
+}
+
+.about-portrait-wrapper {
+  position: sticky;
+  top: calc(var(--header-height) + 2rem);
+}
+
+.about-portrait-frame {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+}
+
+.about-portrait-img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.about-portrait-caption {
+  padding: 1.25rem 1.5rem;
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.about-portrait-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.about-portrait-role {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-accent-yellow);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Narrative Column */
+.about-narrative {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-narrative-eyebrow span {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-accent-teal);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
+.about-narrative-headline {
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+}
+
+.about-narrative-p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 0 0 1.25rem;
+}
+
+/* Quick Metrics */
+.about-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin: 2rem 0 2.5rem;
+}
+
+.about-highlight-box {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+}
+
+.about-highlight-number {
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: var(--color-accent-yellow);
+  font-family: var(--font-mono);
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.about-highlight-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.4rem;
+}
+
+.about-highlight-desc {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Action Buttons */
+.about-actions-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.about-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-accent-yellow);
+  color: var(--text-inverse);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.8rem 1.65rem;
+  border-radius: var(--border-radius-pill);
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(250, 204, 21, 0.2);
+}
+
+.about-btn-primary:hover {
+  background-color: var(--color-accent-yellow-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(250, 204, 21, 0.32);
+}
+
+.about-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.8rem 1.65rem;
+  border-radius: var(--border-radius-pill);
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.about-btn-secondary:hover {
+  border-color: var(--color-accent-teal);
+  color: var(--color-accent-teal);
+  transform: translateY(-2px);
+}
+
+/* Pillars Section */
+.about-pillars-section {
+  margin-bottom: 6rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 3rem 2.5rem;
+}
+
+.about-pillars-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.about-pillars-section-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem;
+}
+
+.about-pillars-section-sub {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.about-pillars-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.about-pillar-card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 1.75rem;
+}
+
+.about-pillar-tag {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-accent-yellow);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.about-pillar-desc {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Tooling & Hardware Section */
+.about-tooling-section {
+  margin-bottom: 2rem;
+}
+
+.about-tooling-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.about-tooling-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 2.25rem;
+}
+
+.about-tooling-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.about-tooling-icon {
+  color: var(--color-accent-teal);
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+}
+
+.about-tooling-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 0;
+  margin: 0;
+}
+
+.about-tooling-list li {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.about-tooling-list li strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 960px) {
+  .about-hero-split {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .about-portrait-wrapper {
+    position: static;
+    max-width: 440px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .about-pillars-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .about-tooling-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-page-root {
+    padding: 3.5rem 0 5rem;
+  }
+
+  .about-portrait-img {
+    height: 380px;
+  }
+
+  .about-highlights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-pillars-section {
+    padding: 2rem 1.5rem;
+  }
+}

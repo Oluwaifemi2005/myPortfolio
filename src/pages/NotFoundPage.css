@@ -1,0 +1,41 @@
+.not-found-page-root {
+  min-height: calc(100vh - var(--header-height) - 180px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1.5rem;
+  background-color: var(--bg-primary);
+}
+
+.not-found-container {
+  text-align: center;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.not-found-message {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 2rem;
+}
+
+.not-found-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-accent-yellow);
+  color: var(--text-inverse);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  padding: 0.8rem 2rem;
+  border-radius: var(--border-radius-pill);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.not-found-btn:hover {
+  background-color: var(--color-accent-yellow-hover);
+  transform: translateY(-2px);
+}

@@ -1,0 +1,51 @@
+/* Framed Section Header matching Screenshot 4 */
+.section-header-root {
+  text-align: center;
+  margin-bottom: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-header-frame {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--text-primary);
+  padding: 0.75rem 2.5rem;
+  background-color: transparent;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.section-header-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.section-header-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-top: 1.25rem;
+  max-width: 640px;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .section-header-root {
+    margin-bottom: 2.75rem;
+  }
+
+  .section-header-frame {
+    padding: 0.65rem 1.85rem;
+  }
+
+  .section-header-title {
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+  }
+}
