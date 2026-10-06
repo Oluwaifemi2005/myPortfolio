@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { profileData } from '../data/profileData';
 import './Navbar.css';
 
 function Navbar() {
@@ -20,11 +19,11 @@ function Navbar() {
         {/* Brand identity: Avatar + Name & Subtitle */}
         <Link to="/" className="navbar-brand" onClick={closeMenu}>
           <div className="navbar-avatar">
-            <img src={profileData.avatarImage} alt={profileData.name} />
+            <img src="/images/portrait.jpg" alt="Brian" />
           </div>
           <div className="navbar-brand-info">
-            <span className="navbar-brand-name">{profileData.name}</span>
-            <span className="navbar-brand-role">{profileData.roles}</span>
+            <span className="navbar-brand-name">Manny Tech & Imagery</span>
+            <span className="navbar-brand-role">Developer & Photographer</span>
           </div>
         </Link>
 

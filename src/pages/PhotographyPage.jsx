@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SectionHeader from '../components/SectionHeader';
-import { photographyData } from '../data/photographyData';
+import { usePhotos } from '../hooks/usePhotos';
 import './PhotographyPage.css';
 
 function PhotographyPage() {
+  const { photos } = usePhotos();
+
   return (
     <div className="photography-page-root">
       <div className="container photography-container">
@@ -31,7 +33,7 @@ function PhotographyPage() {
 
         {/* Photography Showcase Grid */}
         <section className="photography-gallery-grid">
-          {photographyData.map(photo => (
+          {photos.map(photo => (
             <figure key={photo.id} className="photography-card">
               <div className="photography-img-box">
                 <img

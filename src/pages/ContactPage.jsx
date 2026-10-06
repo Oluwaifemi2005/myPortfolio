@@ -61,18 +61,36 @@ function ContactPage() {
     setIsSubmitting(true);
     setErrorMsg('');
 
+    const visitorName = formData.name.trim();
+    const visitorEmail = formData.email.trim();
+    const visitorPhone = formData.phone.trim() || 'Not provided';
+    const visitorService =
+      formData.service === 'software'
+        ? 'Software Development'
+        : formData.service === 'photography'
+        ? 'Photography Session'
+        : 'Both / Collaboration';
+
     const templateParams = {
-      from_name: formData.name,
-      from_email: formData.email,
-      phone: formData.phone.trim() || 'Not provided',
-      service:
-        formData.service === 'software'
-          ? 'Software Development'
-          : formData.service === 'photography'
-          ? 'Photography Session'
-          : 'Both / Collaboration',
-      message: formData.message,
-      to_email: profileData.socials.email
+      // Identity & Contact details
+      from_name: visitorName,
+      name: visitorName,
+      visitor_name: visitorName,
+
+      from_email: visitorEmail,
+      email: visitorEmail,
+      visitor_email: visitorEmail,
+      reply_to: visitorEmail, // Configures Reply-To header in EmailJS
+
+      phone: visitorPhone,
+      visitor_phone: visitorPhone,
+      service: visitorService,
+      message: formData.message.trim(),
+
+      // Destination & Subject
+      to_email: profileData.socials.email,
+      to_name: profileData.name || 'Portfolio Admin',
+      subject: `New Contact Form Message — ${visitorName}`
     };
 
     try {

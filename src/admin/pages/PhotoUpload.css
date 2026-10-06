@@ -1,0 +1,82 @@
+.batch-upload-container {
+  max-width: 800px;
+  background-color: #14151b;
+  border: 1px solid #232530;
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.batch-upload-header {
+  margin-bottom: 24px;
+}
+
+.batch-upload-dropzone {
+  border: 2px dashed #3f3f46;
+  border-radius: 10px;
+  padding: 48px 24px;
+  text-align: center;
+  background-color: #0b0c10;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 24px;
+}
+
+.batch-upload-dropzone:hover {
+  border-color: #10b981;
+  background-color: #0d1211;
+}
+
+.batch-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.batch-preview-card {
+  position: relative;
+  background-color: #1a1c24;
+  border: 1px solid #272733;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.batch-preview-thumb {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  background-color: #0d0e13;
+}
+
+.batch-preview-meta {
+  padding: 6px 8px;
+  font-size: 11px;
+  color: #a1a1aa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.batch-preview-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #f87171;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.batch-preview-remove:hover {
+  background-color: #ef4444;
+  color: #ffffff;
+}

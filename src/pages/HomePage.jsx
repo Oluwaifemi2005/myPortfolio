@@ -2,15 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { profileData } from '../data/profileData';
 import { skillsData } from '../data/skillsData';
-import { softwareProjects } from '../data/softwareProjects';
-import { photographyData } from '../data/photographyData';
 import SectionHeader from '../components/SectionHeader';
+import { useFeatured } from '../hooks/useFeatured';
 import './HomePage.css';
 
 function HomePage() {
-  // Sourced from local data
-  const featuredSoftware = softwareProjects.filter(project => project.featured).slice(0, 3);
-  const latestShots = photographyData.filter(photo => photo.featured).slice(0, 3);
+  const { featuredProjects, latestShots } = useFeatured();
 
   return (
     <div className="home-page-root">
@@ -125,7 +122,7 @@ function HomePage() {
           <SectionHeader title="PORTFOLIO" subtitle="Selected software engineering projects" />
 
           <div className="featured-software-grid">
-            {featuredSoftware.map(project => (
+            {featuredProjects.map(project => (
               <article key={project.id} className="home-project-card">
                 <div className="home-project-image-box">
                   <img src={project.image} alt={project.title} loading="lazy" />

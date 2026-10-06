@@ -1,11 +1,13 @@
 import React from 'react';
 import SectionHeader from '../components/SectionHeader';
 import ProjectCard from '../components/ProjectCard';
-import { softwareProjects } from '../data/softwareProjects';
+import { useProjects } from '../hooks/useProjects';
 import { profileData } from '../data/profileData';
 import './SoftwarePage.css';
 
 function SoftwarePage() {
+  const { projects } = useProjects();
+
   return (
     <div className="software-page-root">
       <div className="container software-container">
@@ -19,7 +21,7 @@ function SoftwarePage() {
 
         {/* Projects Grid */}
         <section className="software-projects-grid">
-          {softwareProjects.map(project => (
+          {projects.map(project => (
             <ProjectCard key={project.id} project={project} />
           ))}
         </section>
