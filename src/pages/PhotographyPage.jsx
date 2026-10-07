@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SectionHeader from '../components/SectionHeader';
+import PhotoCardSkeleton from '../components/skeletons/PhotoCardSkeleton';
+import DataStateMessage from '../components/common/DataStateMessage';
 import { usePhotos } from '../hooks/usePhotos';
 import './PhotographyPage.css';
 
 function PhotographyPage() {
-  const { photos } = usePhotos();
+  const { photos, loading, error, refetch } = usePhotos();
 
   return (
     <div className="photography-page-root">
@@ -31,25 +33,55 @@ function PhotographyPage() {
           </div>
         </header>
 
-        {/* Photography Showcase Grid */}
-        <section className="photography-gallery-grid">
-          {photos.map(photo => (
-            <figure key={photo.id} className="photography-card">
-              <div className="photography-img-box">
-                <img
-                  src={photo.image}
-                  alt={photo.title}
-                  loading="lazy"
-                />
-                <div className="photography-card-overlay">
-                  <span className="photography-card-category">{photo.category}</span>
-                  <h3 className="photography-card-title">{photo.title}</h3>
-                  <p className="photography-card-desc">{photo.description}</p>
+        {/* Loading State: Skeletons */}
+        {loading && (
+          <section className="photography-gallery-grid" aria-label="Loading photography gallery">
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <PhotoCardSkeleton key={`skeleton-${idx}`} />
+            ))}
+          </section>
+        )}
+
+        {/* Error State */}
+        {!loading && error && (
+          <DataStateMessage
+            type="error"
+            title="Unable to Load Photography"
+            message={error}
+            onRetry={refetch}
+          />
+        )}
+
+        {/* Empty State */}
+        {!loading && !error && photos.length === 0 && (
+          <DataStateMessage
+            type="empty"
+            title="No Photography Projects"
+            message="No photography projects available yet."
+          />
+        )}
+
+        {/* Success State: Photography Showcase Grid */}
+        {!loading && !error && photos.length > 0 && (
+          <section className="photography-gallery-grid">
+            {photos.map(photo => (
+              <figure key={photo.id} className="photography-card">
+                <div className="photography-img-box">
+                  <img
+                    src={photo.image}
+                    alt={photo.title}
+                    loading="lazy"
+                  />
+                  <div className="photography-card-overlay">
+                    <span className="photography-card-category">{photo.category}</span>
+                    <h3 className="photography-card-title">{photo.title}</h3>
+                    <p className="photography-card-desc">{photo.description}</p>
+                  </div>
                 </div>
-              </div>
-            </figure>
-          ))}
-        </section>
+              </figure>
+            ))}
+          </section>
+        )}
 
         {/* Photography Commission CTA Banner */}
         <aside className="photography-booking-banner">

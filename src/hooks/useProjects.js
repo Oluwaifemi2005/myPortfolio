@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { projectService } from '../services/projectService';
-import { softwareProjects as fallbackProjects } from '../data/softwareProjects';
 
 /**
  * Normalizes project image field (supports both .image and .imageUrl)
  */
 function normalizeProject(project) {
+  if (!project) return null;
   return {
     ...project,
     id: project.id || project._id,
@@ -14,40 +14,67 @@ function normalizeProject(project) {
 }
 
 /**
- * Custom hook for fetching software projects with resilient fallback
+ * Custom hook for fetching software projects from backend API
+ * Does NOT fallback to static demo data so public UI accurately waits for real backend data.
  */
 export function useProjects(params = {}) {
-  const [projects, setProjects] = useState(() => fallbackProjects.map(normalizeProject));
+  const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isLive, setIsLive] = useState(false);
+
+  const featuredParam = params.featured;
+  const limitParam = params.limit;
+
+  const loadProjects = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const queryParams = {};
+      if (featuredParam !== undefined) queryParams.featured = featuredParam;
+      if (limitParam !== undefined) queryParams.limit = limitParam;
+
+      const data = await projectService.getProjects(queryParams);
+
+      if (Array.isArray(data)) {
+        setProjects(data.map(normalizeProject).filter(Boolean));
+      } else {
+        setProjects([]);
+      }
+      setError(null);
+    } catch (err) {
+      console.error('[Projects API Error]:', err.message);
+      setProjects([]);
+      setError(err.message || 'Failed to load projects');
+    } finally {
+      setLoading(false);
+    }
+  }, [featuredParam, limitParam]);
 
   useEffect(() => {
     let isMounted = true;
 
-    async function loadProjects() {
+    async function execute() {
       try {
         setLoading(true);
-        const data = await projectService.getProjects(params);
+        setError(null);
+        const queryParams = {};
+        if (featuredParam !== undefined) queryParams.featured = featuredParam;
+        if (limitParam !== undefined) queryParams.limit = limitParam;
 
+        const data = await projectService.getProjects(queryParams);
         if (isMounted) {
-          if (data && data.length > 0) {
-            setProjects(data.map(normalizeProject));
-            setIsLive(true);
+          if (Array.isArray(data)) {
+            setProjects(data.map(normalizeProject).filter(Boolean));
           } else {
-            // Keep fallback if database is empty
-            setProjects(fallbackProjects.map(normalizeProject));
-            setIsLive(false);
+            setProjects([]);
           }
           setError(null);
         }
       } catch (err) {
         if (isMounted) {
-          // Graceful fallback to static data if backend is offline or unreachable
-          console.info('[Projects] Using static fallback projects (backend offline or unseeded).');
-          setProjects(fallbackProjects.map(normalizeProject));
-          setError(err.message);
-          setIsLive(false);
+          console.error('[Projects API Error]:', err.message);
+          setProjects([]);
+          setError(err.message || 'Failed to load projects');
         }
       } finally {
         if (isMounted) {
@@ -56,14 +83,14 @@ export function useProjects(params = {}) {
       }
     }
 
-    loadProjects();
+    execute();
 
     return () => {
       isMounted = false;
     };
-  }, [params.featured]);
+  }, [featuredParam, limitParam]);
 
-  return { projects, loading, error, isLive };
+  return { projects, loading, error, refetch: loadProjects };
 }
 
 export default useProjects;

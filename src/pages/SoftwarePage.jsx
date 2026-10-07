@@ -1,12 +1,14 @@
 import React from 'react';
 import SectionHeader from '../components/SectionHeader';
 import ProjectCard from '../components/ProjectCard';
+import ProjectCardSkeleton from '../components/skeletons/ProjectCardSkeleton';
+import DataStateMessage from '../components/common/DataStateMessage';
 import { useProjects } from '../hooks/useProjects';
 import { profileData } from '../data/profileData';
 import './SoftwarePage.css';
 
 function SoftwarePage() {
-  const { projects } = useProjects();
+  const { projects, loading, error, refetch } = useProjects();
 
   return (
     <div className="software-page-root">
@@ -19,12 +21,42 @@ function SoftwarePage() {
           />
         </header>
 
-        {/* Projects Grid */}
-        <section className="software-projects-grid">
-          {projects.map(project => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </section>
+        {/* Loading State: Skeletons */}
+        {loading && (
+          <section className="software-projects-grid" aria-label="Loading software projects">
+            {Array.from({ length: 4 }).map((_, idx) => (
+              <ProjectCardSkeleton key={`skeleton-${idx}`} />
+            ))}
+          </section>
+        )}
+
+        {/* Error State */}
+        {!loading && error && (
+          <DataStateMessage
+            type="error"
+            title="Unable to Load Projects"
+            message={error}
+            onRetry={refetch}
+          />
+        )}
+
+        {/* Empty State */}
+        {!loading && !error && projects.length === 0 && (
+          <DataStateMessage
+            type="empty"
+            title="No Projects Available"
+            message="No software projects available yet."
+          />
+        )}
+
+        {/* Success State: Projects Grid */}
+        {!loading && !error && projects.length > 0 && (
+          <section className="software-projects-grid">
+            {projects.map(project => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </section>
+        )}
 
         {/* GitHub Callout Banner */}
         <aside className="software-github-callout">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './AdminLogin.css';
 
@@ -15,8 +15,8 @@ export function AdminLogin() {
 
   // Redirect if already logged in
   if (isAuthenticated) {
-    const destination = location.state?.from?.pathname || '/admin/dashboard';
-    navigate(destination, { replace: true });
+    const destination = location.state?.from?.pathname || '/admin';
+    return <Navigate to={destination} replace />;
   }
 
   const handleSubmit = async (e) => {
@@ -30,7 +30,7 @@ export function AdminLogin() {
       setIsSubmitting(true);
       setErrorMsg('');
       await login(email.trim(), password);
-      const destination = location.state?.from?.pathname || '/admin/dashboard';
+      const destination = location.state?.from?.pathname || '/admin';
       navigate(destination, { replace: true });
     } catch (err) {
       setErrorMsg(err.message || 'Login failed. Please verify credentials.');

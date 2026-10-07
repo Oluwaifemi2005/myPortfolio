@@ -1,0 +1,169 @@
+/* Skeleton base animation & primitives */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.1) 37%,
+    rgba(255, 255, 255, 0.04) 63%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer {
+    animation: none;
+    background: rgba(255, 255, 255, 0.06);
+  }
+}
+
+/* Project Card Skeleton */
+.project-card-skeleton {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-skeleton-img {
+  width: 100%;
+  height: 210px;
+  background-color: #0c0c0e;
+}
+
+.project-skeleton-img.is-home {
+  height: 180px;
+}
+
+.project-skeleton-content {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.project-skeleton-content.is-home {
+  padding: 1.5rem;
+}
+
+.project-skeleton-title {
+  height: 22px;
+  width: 70%;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 0.85rem;
+}
+
+.project-skeleton-desc-line {
+  height: 13px;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 0.5rem;
+}
+
+.project-skeleton-desc-line.full {
+  width: 100%;
+}
+
+.project-skeleton-desc-line.partial {
+  width: 82%;
+  margin-bottom: 1.5rem;
+}
+
+.project-skeleton-tags {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.project-skeleton-tag {
+  height: 22px;
+  width: 58px;
+  border-radius: var(--border-radius-sm);
+}
+
+.project-skeleton-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.15rem;
+  margin-top: auto;
+}
+
+.project-skeleton-btn {
+  height: 32px;
+  width: 86px;
+  border-radius: var(--border-radius-sm);
+}
+
+.project-skeleton-link {
+  height: 20px;
+  width: 76px;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Photo Card Skeleton */
+.photo-card-skeleton {
+  position: relative;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  aspect-ratio: 4 / 5;
+  width: 100%;
+}
+
+.photo-card-skeleton.is-home {
+  aspect-ratio: 4 / 3;
+}
+
+.photo-skeleton-bg {
+  width: 100%;
+  height: 100%;
+}
+
+.photo-skeleton-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 3rem 1.5rem 1.5rem;
+  background: linear-gradient(
+    to top,
+    rgba(14, 14, 16, 0.95) 0%,
+    rgba(14, 14, 16, 0.6) 60%,
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.photo-card-skeleton.is-home .photo-skeleton-overlay {
+  padding: 2rem 1.25rem 1rem;
+}
+
+.photo-skeleton-badge {
+  height: 12px;
+  width: 72px;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 0.5rem;
+}
+
+.photo-skeleton-title {
+  height: 20px;
+  width: 60%;
+  border-radius: var(--border-radius-sm);
+}

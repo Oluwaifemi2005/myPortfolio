@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { photoService } from '../services/photoService';
-import { photographyData as fallbackPhotos } from '../data/photographyData';
 
 /**
  * Normalizes photo image field (supports both .image and .imageUrl)
  */
 function normalizePhoto(photo) {
+  if (!photo) return null;
   return {
     ...photo,
     id: photo.id || photo._id,
@@ -14,49 +14,94 @@ function normalizePhoto(photo) {
 }
 
 /**
- * Custom hook for fetching photography with category list and resilient fallback
+ * Custom hook for fetching photography with category list from backend API
+ * Does NOT fallback to static demo data so public UI accurately waits for real backend data.
  */
 export function usePhotos(params = {}) {
-  const [photos, setPhotos] = useState(() => fallbackPhotos.map(normalizePhoto));
-  const [categories, setCategories] = useState(() => {
-    return Array.from(new Set(fallbackPhotos.map((p) => p.category)));
-  });
+  const [photos, setPhotos] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isLive, setIsLive] = useState(false);
+
+  const categoryParam = params.category;
+  const featuredParam = params.featured;
+  const limitParam = params.limit;
+
+  const loadPhotos = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const queryParams = {};
+      if (categoryParam) queryParams.category = categoryParam;
+      if (featuredParam !== undefined) queryParams.featured = featuredParam;
+      if (limitParam !== undefined) queryParams.limit = limitParam;
+
+      const [photoData, catData] = await Promise.all([
+        photoService.getPhotos(queryParams),
+        photoService.getCategories().catch(() => [])
+      ]);
+
+      if (Array.isArray(photoData)) {
+        const normalized = photoData.map(normalizePhoto).filter(Boolean);
+        setPhotos(normalized);
+        if (Array.isArray(catData) && catData.length > 0) {
+          setCategories(catData);
+        } else {
+          setCategories(Array.from(new Set(normalized.map(p => p.category).filter(Boolean))));
+        }
+      } else {
+        setPhotos([]);
+        setCategories([]);
+      }
+      setError(null);
+    } catch (err) {
+      console.error('[Photos API Error]:', err.message);
+      setPhotos([]);
+      setCategories([]);
+      setError(err.message || 'Failed to load photography items');
+    } finally {
+      setLoading(false);
+    }
+  }, [categoryParam, featuredParam, limitParam]);
 
   useEffect(() => {
     let isMounted = true;
 
-    async function loadPhotos() {
+    async function execute() {
       try {
         setLoading(true);
+        setError(null);
+        const queryParams = {};
+        if (categoryParam) queryParams.category = categoryParam;
+        if (featuredParam !== undefined) queryParams.featured = featuredParam;
+        if (limitParam !== undefined) queryParams.limit = limitParam;
+
         const [photoData, catData] = await Promise.all([
-          photoService.getPhotos(params),
+          photoService.getPhotos(queryParams),
           photoService.getCategories().catch(() => [])
         ]);
 
         if (isMounted) {
-          if (photoData && photoData.length > 0) {
-            setPhotos(photoData.map(normalizePhoto));
-            setIsLive(true);
+          if (Array.isArray(photoData)) {
+            const normalized = photoData.map(normalizePhoto).filter(Boolean);
+            setPhotos(normalized);
+            if (Array.isArray(catData) && catData.length > 0) {
+              setCategories(catData);
+            } else {
+              setCategories(Array.from(new Set(normalized.map(p => p.category).filter(Boolean))));
+            }
           } else {
-            setPhotos(fallbackPhotos.map(normalizePhoto));
-            setIsLive(false);
+            setPhotos([]);
+            setCategories([]);
           }
-
-          if (catData && catData.length > 0) {
-            setCategories(catData);
-          }
-
           setError(null);
         }
       } catch (err) {
         if (isMounted) {
-          console.info('[Photos] Using static fallback photography (backend offline or unseeded).');
-          setPhotos(fallbackPhotos.map(normalizePhoto));
-          setError(err.message);
-          setIsLive(false);
+          console.error('[Photos API Error]:', err.message);
+          setPhotos([]);
+          setCategories([]);
+          setError(err.message || 'Failed to load photography items');
         }
       } finally {
         if (isMounted) {
@@ -65,14 +110,14 @@ export function usePhotos(params = {}) {
       }
     }
 
-    loadPhotos();
+    execute();
 
     return () => {
       isMounted = false;
     };
-  }, [params.category, params.featured]);
+  }, [categoryParam, featuredParam, limitParam]);
 
-  return { photos, categories, loading, error, isLive };
+  return { photos, categories, loading, error, refetch: loadPhotos };
 }
 
 export default usePhotos;

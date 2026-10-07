@@ -55,8 +55,11 @@ function App() {
             <Route path="projects" element={<ProjectList />} />
             <Route path="projects/new" element={<ProjectForm />} />
             <Route path="projects/:id/edit" element={<ProjectForm />} />
+            {/* Photography / Photos Admin Management */}
             <Route path="photography" element={<PhotoList />} />
             <Route path="photography/upload" element={<PhotoUpload />} />
+            <Route path="photos" element={<PhotoList />} />
+            <Route path="photos/upload" element={<PhotoUpload />} />
           </Route>
         </Routes>
       </BrowserRouter>
