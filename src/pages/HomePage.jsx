@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { profileData } from '../data/profileData';
 import { skillsData } from '../data/skillsData';
@@ -6,11 +6,13 @@ import SectionHeader from '../components/SectionHeader';
 import ProjectCardSkeleton from '../components/skeletons/ProjectCardSkeleton';
 import PhotoCardSkeleton from '../components/skeletons/PhotoCardSkeleton';
 import DataStateMessage from '../components/common/DataStateMessage';
+import PhotoLightbox from '../components/common/PhotoLightbox';
 import { useFeatured } from '../hooks/useFeatured';
 import './HomePage.css';
 
 function HomePage() {
   const { featuredProjects, latestShots, loading, error, refetch } = useFeatured();
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   return (
     <div className="home-page-root">
@@ -269,19 +271,43 @@ function HomePage() {
 
           {/* Success State */}
           {!loading && latestShots.length > 0 && (
-            <div className="latest-shots-grid">
-              {latestShots.map(photo => (
-                <div key={photo.id} className="latest-shot-card">
-                  <div className="latest-shot-img-wrapper">
-                    <img src={photo.image} alt={photo.title} loading="lazy" />
-                    <div className="latest-shot-overlay">
-                      <span className="latest-shot-category">{photo.category}</span>
-                      <h3 className="latest-shot-card-title">{photo.title}</h3>
+            <>
+              <div className="latest-shots-grid">
+                {latestShots.map((photo, index) => (
+                  <div
+                    key={photo.id}
+                    className="latest-shot-card"
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`View ${photo.title} in full screen`}
+                    onClick={() => setLightboxIndex(index)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setLightboxIndex(index);
+                      }
+                    }}
+                  >
+                    <div className="latest-shot-img-wrapper">
+                      <img src={photo.image} alt={photo.title} loading="lazy" />
+                      <div className="latest-shot-overlay">
+                        <span className="latest-shot-category">{photo.category}</span>
+                        <h3 className="latest-shot-card-title">{photo.title}</h3>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+
+              {lightboxIndex !== null && (
+                <PhotoLightbox
+                  photos={latestShots}
+                  currentIndex={lightboxIndex}
+                  onClose={() => setLightboxIndex(null)}
+                  onNavigate={(newIdx) => setLightboxIndex(newIdx)}
+                />
+              )}
+            </>
           )}
 
           {/* Editorial Tagline Quote */}

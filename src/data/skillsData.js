@@ -4,15 +4,17 @@ export const skillsData = {
     { name: "CSS3", category: "Styling" },
     { name: "JavaScript", category: "Language" },
     { name: "React", category: "Frontend" },
+    { name: "Node.js", category: "Backend" },
     { name: "Git", category: "Version Control" },
     { name: "Figma", category: "UI/UX Design" },
     { name: "Webflow", category: "Web Design" }
   ],
   learning: [
     { name: "TypeScript", category: "Language" },
-    { name: "Node.js", category: "Backend" },
     { name: "Next.js", category: "Full-Stack" },
-    { name: "GraphQL", category: "API" }
+    { name: "GraphQL", category: "API" },
+    { name: "PHP", category: "Backend" },
+    { name: "React Native", category: "Frontend" },
   ],
   otherSkills: [
     { name: "Adobe Lightroom", category: "Photo Processing" },

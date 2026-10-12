@@ -1,0 +1,256 @@
+/* ==========================================================================
+   PhotoLightbox Styles - Scoped exclusively to .photo-lightbox-*
+   ========================================================================== */
+
+.photo-lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: rgba(12, 12, 15, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  animation: photoLightboxFadeIn 0.2s ease-out;
+  user-select: none;
+  overflow: hidden;
+}
+
+@keyframes photoLightboxFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Top Bar: Counter & Close */
+.photo-lightbox-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  z-index: 10;
+  width: 100%;
+}
+
+.photo-lightbox-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  background-color: rgba(30, 30, 34, 0.7);
+  border: 1px solid var(--border-color);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--border-radius-pill);
+}
+
+.photo-lightbox-counter-current {
+  color: var(--color-accent-teal);
+}
+
+.photo-lightbox-counter-divider {
+  color: var(--text-muted);
+}
+
+.photo-lightbox-counter-total {
+  color: var(--text-primary);
+}
+
+/* Base Lightbox Button */
+.photo-lightbox-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(30, 30, 34, 0.75);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-pill);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.photo-lightbox-btn:hover:not(:disabled) {
+  background-color: var(--color-accent-teal);
+  color: var(--text-inverse);
+  border-color: var(--color-accent-teal);
+  transform: scale(1.05);
+}
+
+.photo-lightbox-btn:focus-visible {
+  outline: 2px solid var(--color-accent-teal);
+  outline-offset: 3px;
+}
+
+.photo-lightbox-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.photo-lightbox-btn-close {
+  width: 44px;
+  height: 44px;
+}
+
+/* Stage: Centered photo between nav buttons */
+.photo-lightbox-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem 1.5rem;
+  position: relative;
+  min-height: 0;
+  gap: 1rem;
+}
+
+.photo-lightbox-btn-nav {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  z-index: 5;
+}
+
+/* Figure & Image Box */
+.photo-lightbox-figure-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  min-height: 0;
+  user-select: none;
+}
+
+.photo-lightbox-image-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: calc(82vh - 120px);
+  width: 100%;
+  min-height: 0;
+}
+
+.photo-lightbox-image {
+  max-width: 100%;
+  max-height: calc(82vh - 120px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--border-color);
+  animation: photoLightboxZoom 0.25s ease-out;
+}
+
+@keyframes photoLightboxZoom {
+  from {
+    opacity: 0.6;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Caption Section */
+.photo-lightbox-caption {
+  text-align: center;
+  margin-top: 1rem;
+  max-width: 750px;
+  padding: 0 1rem;
+}
+
+.photo-lightbox-category {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-accent-teal);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.25rem;
+}
+
+.photo-lightbox-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 0.25rem;
+  letter-spacing: -0.01em;
+}
+
+.photo-lightbox-description {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .photo-lightbox-topbar {
+    padding: 1rem 1.25rem;
+  }
+
+  .photo-lightbox-stage {
+    padding: 0 0.75rem 1rem;
+    gap: 0.5rem;
+  }
+
+  .photo-lightbox-btn-nav {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .photo-lightbox-btn-prev {
+    left: 0.75rem;
+  }
+
+  .photo-lightbox-btn-next {
+    right: 0.75rem;
+  }
+
+  .photo-lightbox-image-box {
+    max-height: calc(75vh - 100px);
+  }
+
+  .photo-lightbox-image {
+    max-height: calc(75vh - 100px);
+  }
+
+  .photo-lightbox-title {
+    font-size: 1.1rem;
+  }
+
+  .photo-lightbox-description {
+    font-size: 0.8rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-lightbox-btn-close {
+    width: 38px;
+    height: 38px;
+  }
+
+  .photo-lightbox-counter {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.65rem;
+  }
+}

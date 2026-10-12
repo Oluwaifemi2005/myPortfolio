@@ -70,6 +70,12 @@
   aspect-ratio: 4 / 5;
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   margin: 0;
+  cursor: pointer;
+}
+
+.photography-card:focus-visible {
+  outline: 2px solid var(--color-accent-teal);
+  outline-offset: 3px;
 }
 
 .photography-card:hover {

@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SectionHeader from '../components/SectionHeader';
 import PhotoCardSkeleton from '../components/skeletons/PhotoCardSkeleton';
 import DataStateMessage from '../components/common/DataStateMessage';
+import PhotoLightbox from '../components/common/PhotoLightbox';
 import { usePhotos } from '../hooks/usePhotos';
 import './PhotographyPage.css';
 
 function PhotographyPage() {
   const { photos, loading, error, refetch } = usePhotos();
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+
 
   return (
     <div className="photography-page-root">
@@ -63,24 +66,48 @@ function PhotographyPage() {
 
         {/* Success State: Photography Showcase Grid */}
         {!loading && !error && photos.length > 0 && (
-          <section className="photography-gallery-grid">
-            {photos.map(photo => (
-              <figure key={photo.id} className="photography-card">
-                <div className="photography-img-box">
-                  <img
-                    src={photo.image}
-                    alt={photo.title}
-                    loading="lazy"
-                  />
-                  <div className="photography-card-overlay">
-                    <span className="photography-card-category">{photo.category}</span>
-                    <h3 className="photography-card-title">{photo.title}</h3>
-                    <p className="photography-card-desc">{photo.description}</p>
+          <>
+            <section className="photography-gallery-grid">
+              {photos.map((photo, index) => (
+                <figure
+                  key={photo.id}
+                  className="photography-card"
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`View ${photo.title} in full screen`}
+                  onClick={() => setLightboxIndex(index)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setLightboxIndex(index);
+                    }
+                  }}
+                >
+                  <div className="photography-img-box">
+                    <img
+                      src={photo.image}
+                      alt={photo.title}
+                      loading="lazy"
+                    />
+                    <div className="photography-card-overlay">
+                      <span className="photography-card-category">{photo.category}</span>
+                      <h3 className="photography-card-title">{photo.title}</h3>
+                      <p className="photography-card-desc">{photo.description}</p>
+                    </div>
                   </div>
-                </div>
-              </figure>
-            ))}
-          </section>
+                </figure>
+              ))}
+            </section>
+
+            {lightboxIndex !== null && (
+              <PhotoLightbox
+                photos={photos}
+                currentIndex={lightboxIndex}
+                onClose={() => setLightboxIndex(null)}
+                onNavigate={(newIdx) => setLightboxIndex(newIdx)}
+              />
+            )}
+          </>
         )}
 
         {/* Photography Commission CTA Banner */}
